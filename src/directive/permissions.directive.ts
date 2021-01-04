@@ -6,7 +6,7 @@ const permissions: DirectiveOptions = {
     const { value, arg = '' } = binding
     const permissions = store.getters['permissionsStore/getPermissions']
 
-    if (!permissions[arg].includes(value)) {
+    if (!(permissions[arg] || []).includes(value)) {
       el.parentNode?.removeChild(el)
     }
   }

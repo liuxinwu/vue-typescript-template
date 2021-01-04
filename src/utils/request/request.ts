@@ -64,20 +64,20 @@ class Request implements RequestType {
         // 对响应数据做点什么
         const { code = -1, data = {}, msg = "" } = response.data;
         if (code === 0) {
-          return ({
+          return Promise.resolve({
             ...response,
             code,
             data: data,
             status: response.status
-          } as unknown) as AxiosResponse<any>;
+          });
         }
 
-        return ({
+        return Promise.reject({
           ...response,
           code,
           message: msg,
           status: response.status
-        } as unknown) as AxiosResponse<any>;
+        });
       },
       error => {
         // 遗留问题、超时时拿不到响应对象，就无法删除 theQueue 队列

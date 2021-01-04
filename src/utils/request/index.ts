@@ -5,6 +5,8 @@ import {
 } from "./index.type";
 import Request from "./request";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
+// import router from "@/router";
+import store from "@/store";
 
 class RequestProxy implements RequestProxyType {
   private axios: RequestType;
@@ -29,7 +31,7 @@ class RequestProxy implements RequestProxyType {
   private async transfromRquest(
     config: AxiosRequestConfig,
     customConfig: CustomConfigType = {}
-  ): Promise<AxiosResponse<{ data: string | object | any[] }>> {
+  ): Promise<AxiosResponse> {
     customConfig = { ...this.defaultCustomConfig, ...customConfig };
 
     this.transformUrl(config.url);
@@ -41,6 +43,30 @@ class RequestProxy implements RequestProxyType {
       const result = await this.axios.request(config);
       return result;
     } catch (error) {
+      const { code, config } = error
+
+      if (code === 401) {
+        // 解决 token 失效的
+
+        // 方案一 跳转至登录页
+        // store.commit('userStore/setToken', '')
+        // store.commit('permissionsStore/setPermissions', {})
+        // router.replace({ path: '/login', query: {
+        //   redirectUrl: router.currentRoute.fullPath
+        // } })
+
+        // 方式二 自动刷新 token 并重新发起失败的请求
+        const res = await this.transfromRquest({
+          method: 'post',
+          url: '/refresh-token'
+        })
+        console.log(res, '/refresh-token')
+        store.commit('userStore/setToken', res.data.token)
+        return this.transfromRquest(config)
+
+        // 方式三 在请求拦截里面先校验 token 是否过期 再发起请求
+      }
+
       this.handleError(customConfig, error);
       return Promise.reject(error);
     } finally {
@@ -75,7 +101,7 @@ class RequestProxy implements RequestProxyType {
   private addToken(config: AxiosRequestConfig, customConfig: CustomConfigType) {
     if (customConfig.isNeedToken) {
       config.headers = {
-        token: "AFixcvuLFjisdfJksd386"
+        token: store.getters['userStore/getToken'] || ''
       };
     } else {
       config.headers = {};

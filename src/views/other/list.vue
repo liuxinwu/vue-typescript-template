@@ -581,12 +581,17 @@ export default class List extends Vue {
   async getList(params: { [index: string]: number | string }) {
     console.log(params, "getList")
     const { tableOption, paginationOption } = this.listOption
-    const res = await Request.get('http://localhost:8080/user-list', {
-      params
-    }, { isNeedToken: true })
-    const { data, total = 0 } = res.data
-    tableOption.tableAttribute.props.data = data
-    paginationOption.total = total
+    
+    try {
+      const res = await Request.get('http://localhost:8080/user-list', {
+        params
+      }, { isNeedToken: true })
+      const { data, total = 0 } = res.data
+      tableOption.tableAttribute.props.data = data
+      paginationOption.total = total
+    } catch (error) {
+      console.error(error, 'getList')
+    }
   }
 }
 </script>

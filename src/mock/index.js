@@ -5,7 +5,6 @@ module.exports = function(app) {
   const userList = () => {
     const total = 33
     return (req, res) => {
-      console.log(req.headers)
       res.json(
         Mock.mock({
           code: 0,
@@ -28,6 +27,19 @@ module.exports = function(app) {
       );
     }
   }
+
+  const overdue = (req, res, cb) => {
+    const { token } = req.headers
+    if ((new Date().getTime() - +token) > 1000) {
+      return res.json({
+        code: 401,
+        message: 'token 已失效，请登录！'
+      })
+    }
+
+    cb(req, res)
+  }
+
   // 监听请求
   app
     .get("/use-mock", (req, res) => {
@@ -94,7 +106,9 @@ module.exports = function(app) {
       }
     })
 
-    .get("/user-list", userList())
+    .get("/user-list", (req, res) => {
+      overdue(req, res, userList())
+    })
 
     .get('/promise', (req, res) => {
       res.json({
@@ -113,7 +127,7 @@ module.exports = function(app) {
       })
     })
 
-    .post('refresh-token', (req, res) => {
+    .post('/refresh-token', (req, res) => {
       res.json({
         code: 0,
         data: {
