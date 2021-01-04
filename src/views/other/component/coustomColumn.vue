@@ -54,6 +54,7 @@ export default class CoustomColumn extends Vue {
                   button.click && button.click(scope.row, button)
                 }
               },
+              directives: button.directives,
               key: `button_${index}`
             },
             button.text as string

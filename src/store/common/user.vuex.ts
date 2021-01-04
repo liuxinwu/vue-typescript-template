@@ -1,28 +1,38 @@
+import { Module } from "vuex";
+
 interface UserInfoType {
-  name: string
-  age: number
-  sex: number
+  name: string;
+  age: number;
+  sex: number;
 }
 interface UserStateType {
-  userInfo: UserInfoType
-  toekn: string
+  userInfo: UserInfoType;
+  token: string;
 }
 
-const userStore = {
+const userStore: Module<UserStateType, any> = {
   namespaced: true,
-  
+
   state: {
     userInfo: {
       name: "Tome",
       age: 20,
-      sex: 1
+      sex: 1,
     },
-    token: ''
+    token: "",
   },
 
   getters: {
-    userInfo: (state: UserStateType) => state.userInfo
-  }
-}
+    userInfo: (state) => state.userInfo,
+    getToken: (state) => state.token,
+  },
 
-export default userStore
+  mutations: {
+    setToken(state, token) {
+      state.token = token;
+      localStorage.setItem("token", token);
+    },
+  },
+};
+
+export default userStore;

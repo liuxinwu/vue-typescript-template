@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import routerConfig from "./config";
+import gloablHook from "./globalHook"
 
 const BaseLayout = () => import("@/layout/base.layout.vue");
 const OtherLayout = () => import("@/layout/other.layout.vue");
@@ -39,6 +40,11 @@ const routes: Array<RouteConfig> = [
     ]
   },
   {
+    path: '/login',
+    name: "Login",
+    component: () => import("@/views/login.vue")
+  },
+  {
     path: '*',
     name: "404",
     component: () => import("@/views/404.vue")
@@ -50,5 +56,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
+
+gloablHook(router)
 
 export default router;

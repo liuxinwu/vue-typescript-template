@@ -5,7 +5,7 @@ module.exports = function(app) {
   const userList = () => {
     const total = 33
     return (req, res) => {
-      console.log(req.query)
+      console.log(req.headers)
       res.json(
         Mock.mock({
           code: 0,
@@ -15,9 +15,9 @@ module.exports = function(app) {
               {
                 "id|+1": 1,
                 date: Random.date('yyyy-MM-dd'),
-                name: Random.cparagraph(3, 4),
-                province: Random.cparagraph(2, 5),
-                city: Random.cparagraph(2, 5),
+                name: Random.csentence(3, 4),
+                province: Random.csentence(2, 5),
+                city: Random.csentence(2, 5),
                 address: Random.cparagraph(),
                 zip: 200333,
                 tag: Math.random() > .5 ? "家" : "公司",
@@ -94,5 +94,32 @@ module.exports = function(app) {
       }
     })
 
-    .get("/user-list", userList());
+    .get("/user-list", userList())
+
+    .get('/promise', (req, res) => {
+      res.json({
+        Home: ['query', 'add', 'edit'],
+        List: ['query', 'edit']
+      })
+    })
+
+    .post('/login', (req, res) => {
+      res.json({
+        code: 0,
+        data: {
+          token: new Date().getTime()
+        },
+        message: '登录成功'
+      })
+    })
+
+    .post('refresh-token', (req, res) => {
+      res.json({
+        code: 0,
+        data: {
+          token: new Date().getTime()
+        },
+        message: '登入成功'
+      })
+    })
 };

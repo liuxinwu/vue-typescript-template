@@ -499,6 +499,13 @@ export default class List extends Vue {
                     click: (row: any) => {
                       this.$set(row, "isEdit", true);
                     },
+                    directives: [
+                      {
+                        name: 'permissions',
+                        value: 'edit',
+                        arg: 'List'
+                      }
+                    ]
                   },
                   {
                     text: "保存",
@@ -529,6 +536,13 @@ export default class List extends Vue {
                     show: (): boolean => {
                       return true;
                     },
+                    directives: [
+                      {
+                        name: 'permissions',
+                        value: 'delete',
+                        arg: 'List'
+                      }
+                    ]
                   },
                 ],
               },
@@ -569,7 +583,7 @@ export default class List extends Vue {
     const { tableOption, paginationOption } = this.listOption
     const res = await Request.get('http://localhost:8080/user-list', {
       params
-    })
+    }, { isNeedToken: true })
     const { data, total = 0 } = res.data
     tableOption.tableAttribute.props.data = data
     paginationOption.total = total
