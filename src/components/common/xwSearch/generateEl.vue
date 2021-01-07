@@ -49,6 +49,7 @@
     generateChaild(h: CreateElement): VNodeChildren {
       const option = this.option
       if (option.elType !== 'el-select') return
+      if (option.options === undefined) return
 
       return option.options.map(option => (h(
         'el-option',

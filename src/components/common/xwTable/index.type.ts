@@ -1,6 +1,6 @@
 export interface TableOption {
   tableAttribute: TableAttribute
-  tableColumn: TableColumn
+  tableColumn: TableColumn[]
 }
 
 export interface TableAttribute {
@@ -13,8 +13,9 @@ export interface TableAttribute {
 
 export interface TableColumn {
   props: {
-    label: string
-    prop: string
+    label?: string
+    prop?: string
+    [index: string]: any
   },
   columnChild?: TableColumn[]
   [index: string]: any

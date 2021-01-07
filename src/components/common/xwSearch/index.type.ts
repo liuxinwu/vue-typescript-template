@@ -5,7 +5,7 @@ export interface SearchOption {
   endKey?: string
   startDefaultValue?: string | number | any[]
   endDefaultValue?: string | number | any[]
-  options: object[]
+  options?: object[]
   [index: string]: any
 }
 
