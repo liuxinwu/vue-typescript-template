@@ -1,6 +1,6 @@
 <template>
   <div class="other-list-container">
-    <xw-list v-bind="listOption" @getList="getList"/>
+    <xw-list v-bind="listOption" @getList="getList" />
   </div>
 </template>
 
@@ -9,7 +9,7 @@ import { Vue, Component } from "vue-property-decorator";
 import XwList from "@/components/business/xw-list/index.vue";
 import CoustomColumnHeader from "./component/coustomColumnHeader.vue";
 import CoustomColumn from "./component/coustomColumn.vue";
-import Request from "@/utils/requestInstance"
+import Request from "@/utils/requestInstance";
 
 @Component({
   components: {
@@ -393,9 +393,9 @@ export default class List extends Vue {
         },
         {
           props: {
-            type: 'index',
-            label: '#'
-          }
+            type: "index",
+            label: "#",
+          },
         },
         {
           props: {
@@ -413,8 +413,8 @@ export default class List extends Vue {
               options: {
                 el: "el-date-picker",
                 props: {
-                  valueFormat: "yyyy-MM-dd"
-                }
+                  valueFormat: "yyyy-MM-dd",
+                },
               },
               component: CoustomColumn,
             }, // 自定义列
@@ -448,7 +448,7 @@ export default class List extends Vue {
                 {
                   props: {
                     label: "省份",
-                    prop: "province"
+                    prop: "province",
                   },
                 },
                 {
@@ -462,7 +462,7 @@ export default class List extends Vue {
                     label: "地址",
                     prop: "address",
                     width: 200,
-                    showOverflowTooltip: true
+                    showOverflowTooltip: true,
                   },
                 },
                 {
@@ -501,19 +501,25 @@ export default class List extends Vue {
                     },
                     directives: [
                       {
-                        name: 'permissions',
-                        value: 'edit',
-                        arg: 'List'
-                      }
-                    ]
+                        name: "permissions",
+                        value: "edit",
+                        arg: "List",
+                      },
+                    ],
                   },
                   {
                     text: "保存",
+                    loading: "saveLoading",
                     show: (row: any): boolean => {
                       return row.isEdit;
                     },
-                    click: (row: any) => {
-                      this.$set(row, "isEdit", true);
+                    click: (row: any, btn: any) => {
+                      this.$set(row, btn.loading, true);
+
+                      setTimeout(() => {
+                        this.$set(row, btn.loading, false);
+                        this.$set(row, "isEdit", false);
+                      }, 1000);
                     },
                   },
                   {
@@ -538,11 +544,11 @@ export default class List extends Vue {
                     },
                     directives: [
                       {
-                        name: 'permissions',
-                        value: 'delete',
-                        arg: 'List'
-                      }
-                    ]
+                        name: "permissions",
+                        value: "delete",
+                        arg: "List",
+                      },
+                    ],
                   },
                 ],
               },
@@ -579,18 +585,22 @@ export default class List extends Vue {
   }
 
   async getList(params: { [index: string]: number | string }) {
-    console.log(params, "getList")
-    const { tableOption, paginationOption } = this.listOption
-    
+    console.log(params, "getList");
+    const { tableOption, paginationOption } = this.listOption;
+
     try {
-      const res = await Request.get('http://localhost:8080/user-list', {
-        params
-      }, { isNeedToken: true })
-      const { data, total = 0 } = res.data
-      tableOption.tableAttribute.props.data = data
-      paginationOption.total = total
+      const res = await Request.get(
+        "http://localhost:8080/user-list",
+        {
+          params,
+        },
+        { isNeedToken: true }
+      );
+      const { data, total = 0 } = res.data;
+      tableOption.tableAttribute.props.data = data;
+      paginationOption.total = total;
     } catch (error) {
-      console.error(error, 'getList')
+      console.error(error, "getList");
     }
   }
 }

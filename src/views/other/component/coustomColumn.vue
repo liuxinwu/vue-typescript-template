@@ -47,7 +47,8 @@ export default class CoustomColumn extends Vue {
             {
               props: {
                 ...props,
-                ...button.props
+                ...button.props,
+                loading: scope.row[button.loading]
               },
               on: {
                 click: () => {

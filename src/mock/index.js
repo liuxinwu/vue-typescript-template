@@ -112,8 +112,12 @@ module.exports = function(app) {
 
     .get('/promise', (req, res) => {
       res.json({
-        Home: ['query', 'add', 'edit'],
-        List: ['query', 'edit']
+        code: 0,
+        data: {
+          Home: ['query', 'add', 'edit'],
+          List: ['query', 'edit']
+        },
+        message: '获取权限成功'
       })
     })
 

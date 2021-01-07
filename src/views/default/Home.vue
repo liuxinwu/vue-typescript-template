@@ -18,6 +18,8 @@
     <h1 class="title">Longpress</h1>
     <p v-longpress="longpress">长按 <span>😯</span></p>
 
+    <worker-example />
+
     <img
       v-lazyLoad="lazySrc"
     />
@@ -26,17 +28,19 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import RequestExample from "@/components/example/request-example.vue";
-import WsExample from "@/components/example/ws-example.vue";
-import LangExample from "@/components/example/lang-example.vue";
-import VuexExample from "@/components/example/vuex-example.vue";
+import RequestExample from "@/components/example/requestExample.vue";
+import WsExample from "@/components/example/wsExample.vue";
+import LangExample from "@/components/example/langExample.vue";
+import VuexExample from "@/components/example/vuexExample.vue";
+import WorkerExample from "@/components/example/workerExample.vue";
 
 @Component({
   components: {
     RequestExample,
     WsExample,
     LangExample,
-    VuexExample
+    VuexExample,
+    WorkerExample
   }
 })
 
