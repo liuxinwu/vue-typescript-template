@@ -18,7 +18,12 @@
         </el-aside>
         <el-main>
           <transition name="page">
-            <router-view />
+            <keep-alive max="5">
+              <router-view v-if="$route.meta.isCache" />
+            </keep-alive>
+          </transition>
+          <transition name="page">
+            <router-view v-if="!$route.meta.isCache" />
           </transition>
         </el-main>
       </el-container>

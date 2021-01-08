@@ -9,7 +9,6 @@ export default class GenerateElTable extends Vue {
 
   render(h: CreateElement) {
     const { props = {}, on = {} } = this.tableAttribute
-    console.log(on, "on")
 
     return h(
       'el-table',

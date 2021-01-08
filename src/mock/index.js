@@ -30,7 +30,7 @@ module.exports = function(app) {
 
   const overdue = (req, res, cb) => {
     const { token } = req.headers
-    if ((new Date().getTime() - +token) > 1000) {
+    if ((new Date().getTime() - +token) > 1000 * 60 * 60 * 24 * 7) {
       return res.json({
         code: 401,
         message: 'token 已失效，请登录！'

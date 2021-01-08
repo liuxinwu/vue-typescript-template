@@ -15,9 +15,5 @@ export default class CoustomColumnHeader extends Vue {
     required: true
   })
   scope!: object
-
-  created() {
-    console.log('CoustomColumnHeader')
-  }
 }
 </script>

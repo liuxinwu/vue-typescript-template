@@ -7,7 +7,8 @@ const routes: RouteConfig[] = [
     component: () =>
       import(/* webpackChunkName: "news1" */ "@/views/other-page/news-module/news1/index.vue"),
     meta: {
-      isLogin: true
+      isLogin: true,
+      isCache: true
     }
   },
   {

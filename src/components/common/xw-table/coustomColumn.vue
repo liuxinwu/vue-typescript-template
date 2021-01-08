@@ -34,7 +34,6 @@ export default class CoustomColumn extends Vue {
 
     // 没传组件的时候 或者 非编辑时
     if (!isEdit && !buttons || !el) {
-      console.log(value, "value")
       return h('span', value)
     }
 
