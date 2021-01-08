@@ -1,5 +1,8 @@
 import VueRouter from 'vue-router'
 import store from '@/store'
+import ProgressBar from "@/utils/progressBar"
+
+const progressBar = new ProgressBar()
 
 export default function gloablHook(router: VueRouter) {
   router
@@ -7,6 +10,7 @@ export default function gloablHook(router: VueRouter) {
       const { fullPath, meta: { isLogin = false } = {} } = to
       const token = store.getters['userStore/getToken']
 
+      progressBar.start()
       if (token && to.path === '/login') {
         return next('/')
       }
@@ -21,4 +25,9 @@ export default function gloablHook(router: VueRouter) {
       }
       next()
     })
+
+  
+  router.afterEach(() => {
+    progressBar.close()
+  })
 }

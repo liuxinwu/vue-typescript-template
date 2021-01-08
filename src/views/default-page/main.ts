@@ -1,9 +1,9 @@
 import Vue from "vue";
 import App from "./App.vue";
 // 路由
-import router from "./router";
+import router from "@/router";
 // Vuex
-import store from "./store";
+import store from "@/store";
 // 国际化
 import i18n from "@/i18n/index.ts";
 // 自动设置 html 元素的大小 配合 postcss-pxtorem 实现响应式

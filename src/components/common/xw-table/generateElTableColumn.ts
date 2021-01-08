@@ -1,6 +1,6 @@
 import { CreateElement } from "vue";
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { ScopedSlot, VNodeChildren } from "vue/types/vnode.d";
+import { ScopedSlot, VNodeChildren } from "vue/types/vnode";
 import { TableColumn } from "./index.type";
 
 @Component({})

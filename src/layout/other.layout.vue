@@ -10,9 +10,16 @@
         <h3>other-layout</h3>
       </el-header>
       <el-container>
-        <el-aside width="200px">Aside</el-aside>
+        <el-aside width="200px">
+          <ul id="nav">
+            <li><router-link to="news1">news1</router-link></li>
+            <li><router-link to="news2">news2</router-link></li>
+          </ul>
+        </el-aside>
         <el-main>
-          <router-view />
+          <transition name="page">
+            <router-view />
+          </transition>
         </el-main>
       </el-container>
     </el-container>
@@ -20,33 +27,50 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component } from "vue-property-decorator";
 
-  @Component
-  export default class OtherLayout extends Vue {}
+@Component
+export default class OtherLayout extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-.el-header, .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-    height: 60px;
+@import "@/assets/styles/pageAnimate.scss";
+
+#nav {
+  li {
+    padding: 10px 20px;
   }
 
-  .el-container {
-    min-height: calc(100vh - 76px);
+  a {
+    font-weight: bold;
+    color: #2c3e50;
   }
-  
-  .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: center;
+
+  a.router-link-exact-active {
+    color: #42b983;
   }
-  
-  .el-main {
-    // background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-  }
+}
+
+.el-header,
+.el-footer {
+  background-color: #b3c0d1;
+  color: #333;
+  text-align: center;
+  height: 60px;
+}
+
+.el-container {
+  min-height: calc(100vh - 76px);
+}
+
+.el-aside {
+  background-color: #d3dce6;
+  color: #333;
+  text-align: center;
+}
+
+.el-main {
+  color: #333;
+  text-align: center;
+}
 </style>

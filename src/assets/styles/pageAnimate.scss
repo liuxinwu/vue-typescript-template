@@ -1,0 +1,26 @@
+.el-main {
+  position: relative;
+}
+
+.page-enter-active {
+  transition: all .5s;
+  transform: translateX(0%);
+}
+
+.page-leave-active {
+  transition: all .5s .1s;
+  transform: translateX(0%);
+}
+
+.page-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+  position: absolute;
+  right: 20px;
+  left: 20px;
+}

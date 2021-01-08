@@ -36,9 +36,9 @@ import {
   PaginationOption,
   SearchParams,
 } from "./index.type";
-import XwSearch from "@/components/common/xwSearch/index.vue";
-import XwTable from "@/components/common/xwTable/index.vue";
-import XwPagination from "@/components/common/xwPagination/index.vue";
+import XwSearch from "@/components/common/xw-search/index.vue";
+import XwTable from "@/components/common/xw-table/index.vue";
+import XwPagination from "@/components/common/xw-pagination/index.vue";
 
 @Component({
   components: {

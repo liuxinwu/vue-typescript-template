@@ -8,7 +8,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import XwList, { SearchOption, TableOption, PaginationOption } from "@/components/business/xw-list/index";
 import CoustomColumnHeader from "./components/coustomColumnHeader.vue";
-import CoustomColumn from "@/components/common/xwTable/coustomColumn.vue";
+import CoustomColumn from "@/components/common/xw-table/coustomColumn.vue";
 import Request from "@/utils/requestInstance";
 
 @Component({

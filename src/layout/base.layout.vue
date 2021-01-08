@@ -5,39 +5,74 @@
 -->
 <template>
   <div class="base-layout">
-    <h3>base-layout</h3>
-    
-    <div id="nav">
-      <router-link to="/home">Home</router-link> |
-      <router-link to="/home2">Home2</router-link> |
-      <router-link to="/other/list" target="_blank">List</router-link>
-    </div>
-
-    <router-view />
+    <el-container>
+      <el-header>
+        <h3>base-layout</h3>
+      </el-header>
+      <el-container>
+        <el-aside width="200px">
+          <ul id="nav">
+            <li><router-link to="/home">Home</router-link></li>
+            <li><router-link to="/home2">Home2</router-link></li>
+            <li>
+              <router-link to="/other/news1" target="_blank">List</router-link>
+            </li>
+          </ul>
+        </el-aside>
+        <el-main>
+          <transition name="page">
+            <router-view />
+          </transition>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script lang="ts">
-  import { Vue } from 'vue-property-decorator'
+import { Vue } from "vue-property-decorator";
 
-  export default class BaseLayout extends Vue {}
+export default class BaseLayout extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-.base-layout {
-  padding: 50px 20%;
-}
+@import "@/assets/styles/pageAnimate.scss";
 
 #nav {
-  padding: 30px;
+  li {
+    padding: 10px 20px;
+  }
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+  }
+
+  a.router-link-exact-active {
+    color: #42b983;
+  }
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.el-header,
+.el-footer {
+  background-color: #b3c0d1;
+  color: #333;
+  text-align: center;
+  height: 60px;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.el-container {
+  min-height: calc(100vh - 76px);
+}
+
+.el-aside {
+  background-color: #d3dce6;
+  color: #333;
+  text-align: center;
+}
+
+.el-main {
+  color: #333;
+  text-align: center;
 }
 </style>
