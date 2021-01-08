@@ -38,7 +38,7 @@ import {
 } from "./index.type";
 import XwSearch from "@/components/common/xwSearch/index.vue";
 import XwTable from "@/components/common/xwTable/index.vue";
-import XwPagination from "@/components/common/xwPagination.vue";
+import XwPagination from "@/components/common/xwPagination/index.vue";
 
 @Component({
   components: {

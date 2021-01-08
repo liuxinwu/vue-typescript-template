@@ -14,7 +14,7 @@ export default class GenerateElTableColumn extends Vue {
 
   generateTableColumn(h: CreateElement, column: TableColumn) {
     const scopedSlots: { [key: string]: ScopedSlot | undefined; } = {}
-    const { props, slots, columnChild } = column
+    const { props, slots = {}, columnChild } = column
     for (const slotName in slots || {}) {
       if (Object.prototype.hasOwnProperty.call(slots, slotName)) {
         scopedSlots[slotName] = (props: any) => {

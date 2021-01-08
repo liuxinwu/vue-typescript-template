@@ -6,9 +6,9 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import XwList from "@/components/business/xw-list/index.vue";
-import CoustomColumnHeader from "./component/coustomColumnHeader.vue";
-import CoustomColumn from "./component/coustomColumn.vue";
+import XwList, { SearchOption, TableOption, PaginationOption } from "@/components/business/xw-list/index";
+import CoustomColumnHeader from "./components/coustomColumnHeader.vue";
+import CoustomColumn from "@/components/common/xwTable/coustomColumn.vue";
 import Request from "@/utils/requestInstance";
 
 @Component({
@@ -17,7 +17,11 @@ import Request from "@/utils/requestInstance";
   },
 })
 export default class List extends Vue {
-  listOption = {
+  listOption: {
+    searchOption: SearchOption[]
+    tableOption: TableOption
+    paginationOption: PaginationOption
+  } = {
     searchOption: [
       {
         elType: "el-input",
@@ -382,7 +386,7 @@ export default class List extends Vue {
           // }
         },
       },
-      tableColumn: Object.freeze([
+      tableColumn: [
         {
           props: {
             type: "selection",
@@ -556,7 +560,7 @@ export default class List extends Vue {
             },
           },
         },
-      ]),
+      ],
     },
     paginationOption: {
       total: 0,

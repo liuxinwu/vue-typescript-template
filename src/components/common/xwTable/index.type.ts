@@ -17,6 +17,7 @@ export interface TableColumn {
     prop?: string
     [index: string]: any
   },
+  slots?: { [index: string]: any }
   columnChild?: TableColumn[]
   [index: string]: any
 }
