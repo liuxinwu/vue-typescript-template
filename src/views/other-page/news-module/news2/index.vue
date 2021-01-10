@@ -6,9 +6,11 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import XwList, { SearchOption, TableOption, PaginationOption } from "@/components/business/xw-list/index";
-import CoustomColumnHeader from "./components/coustomColumnHeader.vue";
-import CoustomColumn from "@/components/common/xw-table/coustomColumn.vue";
+import XwList, {
+  SearchOption,
+  TableOption,
+  PaginationOption,
+} from "@/components/business/xw-list/index";
 import Request from "@/utils/requestInstance";
 
 @Component({
@@ -18,9 +20,9 @@ import Request from "@/utils/requestInstance";
 })
 export default class List extends Vue {
   listOption: {
-    searchOption: SearchOption[]
-    tableOption: TableOption
-    paginationOption: PaginationOption
+    searchOption: SearchOption[];
+    tableOption: TableOption;
+    paginationOption: PaginationOption;
   } = {
     searchOption: [
       {
@@ -389,14 +391,6 @@ export default class List extends Vue {
       tableColumn: [
         {
           props: {
-            type: "selection",
-            // 使用列固定由于 element-ui 的设计问题
-            // 会渲染两次表格
-            // fixed: "left",
-          },
-        },
-        {
-          props: {
             type: "index",
             label: "#",
           },
@@ -408,156 +402,18 @@ export default class List extends Vue {
             prop: "date",
             width: 180,
           },
-          slots: {
-            // 插槽
-            header: {
-              component: CoustomColumnHeader,
-            }, // 自定义头
-            default: {
-              options: {
-                el: "el-date-picker",
-                props: {
-                  valueFormat: "yyyy-MM-dd",
-                },
-              },
-              component: CoustomColumn,
-            }, // 自定义列
+        },
+        {
+          props: {
+            label: "姓名",
+            prop: "name",
           },
         },
         {
           props: {
-            label: "配送信息",
-          },
-          columnChild: [
-            {
-              props: {
-                label: "姓名",
-                prop: "name",
-              },
-              slots: {
-                default: {
-                  options: {
-                    el: "el-input",
-                  },
-                  component: CoustomColumn,
-                },
-              },
-            },
-            {
-              props: {
-                label: "地址",
-              },
-              columnChild: [
-                // 多级表头
-                {
-                  props: {
-                    label: "省份",
-                    prop: "province",
-                  },
-                },
-                {
-                  props: {
-                    label: "市区",
-                    prop: "city",
-                  },
-                },
-                {
-                  props: {
-                    label: "地址",
-                    prop: "address",
-                    width: 200,
-                    showOverflowTooltip: true,
-                  },
-                },
-                {
-                  props: {
-                    label: "邮编",
-                    prop: "zip",
-                    sortable: true,
-                  },
-                },
-              ],
-            },
-          ],
-        },
-        {
-          props: {
-            label: "操作",
-            prop: "operation",
-            width: 220,
-          },
-          slots: {
-            default: {
-              options: {
-                el: "el-button",
-                props: {
-                  type: "primary",
-                  size: "mini",
-                },
-                buttons: [
-                  {
-                    text: "编辑",
-                    show: (row: any): boolean => {
-                      return !row.isEdit;
-                    },
-                    click: (row: any) => {
-                      this.$set(row, "isEdit", true);
-                    },
-                    directives: [
-                      {
-                        name: "permissions",
-                        value: "edit",
-                        arg: "List",
-                      },
-                    ],
-                  },
-                  {
-                    text: "保存",
-                    loading: "saveLoading",
-                    show: (row: any): boolean => {
-                      return row.isEdit;
-                    },
-                    click: (row: any, btn: any) => {
-                      this.$set(row, btn.loading, true);
-
-                      setTimeout(() => {
-                        this.$set(row, btn.loading, false);
-                        this.$set(row, "isEdit", false);
-                      }, 1000);
-                    },
-                  },
-                  {
-                    text: "取消",
-                    props: {
-                      type: "",
-                    },
-                    show: (row: any): boolean => {
-                      return row.isEdit;
-                    },
-                    click: (row: any) => {
-                      row.isEdit = false;
-                    },
-                  },
-                  {
-                    text: "删除",
-                    props: {
-                      type: "danger",
-                    },
-                    show: (): boolean => {
-                      return true;
-                    },
-                    directives: [
-                      {
-                        name: "permissions",
-                        value: "delete",
-                        arg: "List",
-                      },
-                    ],
-                  },
-                ],
-              },
-              component: CoustomColumn,
-            },
+            label: "地址",
+            prop: "address",
+            showOverflowTooltip: true,
           },
         },
       ],

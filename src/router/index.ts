@@ -3,8 +3,8 @@ import VueRouter, { RouteConfig } from "vue-router";
 import routerConfig from "./config";
 import gloablHook from "./globalHook"
 
-const BaseLayout = () => import("@/layout/base.layout.vue");
-const OtherLayout = () => import("@/layout/other.layout.vue");
+const BaseLayout = () => import(/* webpackChunkName: "baseLayout" */ "@/layout/base.layout.vue");
+const OtherLayout = () => import(/* webpackChunkName: "otherLayout" */ "@/layout/other.layout.vue");
 
 Vue.use(VueRouter);
 
@@ -42,12 +42,12 @@ const routes: Array<RouteConfig> = [
   {
     path: '/login',
     name: "Login",
-    component: () => import("@/views/login.vue")
+    component: () => import(/* webpackChunkName: "login" */ "@/views/login.vue")
   },
   {
     path: '*',
     name: "404",
-    component: () => import("@/views/404.vue")
+    component: () => import(/* webpackChunkName: "404" */ "@/views/404.vue")
   }
 ];
 
