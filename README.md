@@ -1,4 +1,4 @@
-# vue-template
+# vue-typescript-template
 
 ## 基础功能列表
 
