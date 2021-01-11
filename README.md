@@ -23,6 +23,8 @@
 
 *【红色部分还未完成】*
 
+[详细文档](https://juejin.cn/post/6916304048505225223)
+
 ## Project setup
 ```
 yarn install
