@@ -7,6 +7,7 @@ import Request from "./request";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 // import router from "@/router";
 import store from "@/store";
+import { Loading } from 'element-ui'
 
 class RequestProxy implements RequestProxyType {
   private axios: RequestType;
@@ -16,7 +17,12 @@ class RequestProxy implements RequestProxyType {
     isNeedShowError: true
 	};
 	// 记录并行的请求次数
-	private requestCount: number = 0;
+  private requestCount: number = 0;
+  // Loading 控制
+  loadingConfig: {
+    timeId?: number
+    service?: any
+  } = {}
 
   constructor(config: AxiosRequestConfig) {
     config.baseURL = this.transformUrl(config.baseURL, true);
@@ -37,7 +43,7 @@ class RequestProxy implements RequestProxyType {
     this.transformUrl(config.url);
     this.handleLoading(customConfig, true);
     this.addToken(config, customConfig);
-		this.requestCount++
+		customConfig.isNeedLoading && this.requestCount++
 
     try {
       const result = await this.axios.request(config);
@@ -70,7 +76,7 @@ class RequestProxy implements RequestProxyType {
       this.handleError(customConfig, error);
       return Promise.reject(error);
     } finally {
-			this.requestCount--
+			customConfig.isNeedLoading && this.requestCount--
       this.handleLoading(customConfig, false);
 		}
   }
@@ -86,11 +92,21 @@ class RequestProxy implements RequestProxyType {
 		if (this.requestCount !== 0) return;
 
 		if (isOpen) {
-			console.log("开启 Loading");
+      console.log("开启 Loading");
+      
+      this.loadingConfig.timeId = setTimeout(() => {
+        this.loadingConfig.service = Loading.service({
+          text: '拼命加载中...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.8)'
+        })
+      }, 300)
 			return
 		}
-
-		console.log("关闭 Loading");
+    
+    console.log("关闭 Loading");
+    clearInterval(this.loadingConfig.timeId)
+    this.loadingConfig.service && this.loadingConfig.service.close()
   }
 
   /**
