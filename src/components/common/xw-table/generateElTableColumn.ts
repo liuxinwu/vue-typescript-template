@@ -26,7 +26,8 @@ export default class GenerateElTableColumn extends Vue {
                 row: props.row || {},
                 prop: column.props.prop
               },
-              options: (slots[slotName].options || {})
+              options: (slots[slotName].options || {}),
+              renderFn: slots[slotName].renderFn
             }
           })
         }

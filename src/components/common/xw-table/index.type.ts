@@ -30,7 +30,9 @@ export interface TableColumn {
       // 属性
       options?: object
       // 自定义组件
-      component: Component
+      component: Component,
+      // 渲染函数
+      renderFn?: Function
     }
   }
   // 多级表头

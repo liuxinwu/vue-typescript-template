@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts">
+import { CreateElement } from "vue"
 import { Vue, Component } from "vue-property-decorator";
 import XwList, { SearchOption, TableOption, PaginationOption } from "@/components/business/xw-list/index";
 import CoustomColumnHeader from "./components/coustomColumnHeader.vue";
@@ -14,7 +15,7 @@ import otherPageApi from "@/api/other-page"
 
 @Component({
   components: {
-    XwList,
+    XwList
   },
 })
 export default class List extends Vue {
@@ -419,9 +420,12 @@ export default class List extends Vue {
                 el: "el-date-picker",
                 props: {
                   valueFormat: "yyyy-MM-dd",
-                },
+                }
               },
-              component: CoustomColumn,
+              renderFn: (h: CreateElement, value: any) => {
+                return h('div', {}, value)
+              },
+              component: CoustomColumn
             }, // 自定义列
           },
         },
@@ -567,8 +571,11 @@ export default class List extends Vue {
       total: 0,
       currentPage: 1,
       background: true,
-    },
+    }
   };
+  render = (h: CreateElement) => {
+    return h('div', {}, 'this is a div')
+  }
 
   tableRowClassName({ rowIndex }: any) {
     if (rowIndex === 0) {

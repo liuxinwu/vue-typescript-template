@@ -16,6 +16,11 @@ export default class CoustomColumn extends Vue {
   })
   options!: { [index: string]: any};
 
+  @Prop({
+    type: Function
+  })
+  renderFn?: (h: CreateElement, value: any) => void
+
   render(h: CreateElement) {
     const scope = this.scope;
     const { el, props, on = {}, buttons } = this.options
@@ -34,7 +39,7 @@ export default class CoustomColumn extends Vue {
 
     // 没传组件的时候 或者 非编辑时
     if (!isEdit && !buttons || !el) {
-      return h('span', value)
+      return this.renderFn && this.renderFn(h, value) || h('span', value)
     }
 
     if (buttons) {
